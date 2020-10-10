@@ -1,5 +1,3 @@
-
-
 /*Task. go through all of these issues and make appropriate improvements to the code.
 
 1. Naming: the function has a bad name, myFunction() tells you nothing about
@@ -39,34 +37,47 @@
    
    */
 
+//la funcion permite mostar lo que se refleja en una nomina
+function nomina(salary, taxCode, incomeTax1, incomeTax2) {
+    let totalIncomeTax = incomeTax1 + incomeTax2;
+    let constanteSalarial = 17775;
+    let cuantiaStudent = 0.09;
+    let studentLoan = (salary - constanteSalarial) * cuantiaStudent;
+    let originalSalary = salary;
+    let nationalInsurance = null;
+    let netSalary;
+    let cuantia1150L = 0.1;
+    let cuantiaST = 0.05;
+    let cuantiaGeneral = 0.08;
 
-function myFunction(salary, taxCode, incomeTax1, incomeTax2, ownsCar) {
-  var totalIncomeTax = incomeTax1 + incomeTax2;
-  var studentLoan = (salary - 17775) * 0.09;
-  var originalSalary = salary;
-  var nationalInsurance = null;
+    // validando el codigo impuestos aplicado en la nomina para saber el cuanto paga del seguro nacional
+    if (taxCode === "1150L") {
+        nationalInsurance = salary * cuantia1150L;
+    } else if (taxCode === "ST") {
+        nationalInsurance = salary * cuantiaST;
+    } else {
+        nationalInsurance = salary * cuantiaGeneral;
+    }
 
-  if (taxCode === "1150L") {
-    nationalInsurance = salary * 0.1;
-  } else if (taxCode === "ST") {
-    nationalInsurance = salary * 0.05;
-  } else {
-    nationalInsurance = salary * 0.08;
-  }
+    // calculando deducciones de nomina
+    function deducciones() {
+        var deductions = [nationalInsurance, totalIncomeTax, studentLoan];
 
-  var deductions = [nationalInsurance, totalIncomeTax, studentLoan];
-
-  salary = salary - deductions[0];
-  salary = salary - deductions[1];
-  salary = salary - deductions[2];
-
-  return (
-    "Your gross income is £" +
-    originalSalary.toString() +
-    " and your net income is £" +
-    salary.toString() +
-    "."
-  );
+        for (let index = 0; index < deductions.length; index++) {
+            const element = deductions[index];
+            netSalary = salary - element;
+            console.log("algo", netSalary);
+        }
+    }
+    deducciones();
+    // muestra el salario bruto y neto
+    return (
+        "Your gross income is ï¿½" +
+        originalSalary.toString() +
+        " and your net income is ï¿½" +
+        netSalary.toString() +
+        "."
+    );
 }
 
-console.log(myFunction(28000, "1150L", 1000, 580, false));
+console.log(nomina(28000, "1150L", 1000, 580, false));
